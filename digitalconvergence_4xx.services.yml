@@ -1,0 +1,5 @@
+services:
+  digitalconvergence_4xx.system_route_subscriber:
+    class: Drupal\digitalconvergence_4xx\EventSubscriber\RouteSubscriber
+    tags:
+      - { name: event_subscriber }
