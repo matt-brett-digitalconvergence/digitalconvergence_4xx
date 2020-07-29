@@ -1,4 +1,5 @@
-name: System 4xx Controller
+name: System 4xx
+package: 'Digital Convergence'
 type: module
 description: Allow you to perform system 4xx related overrides.
 core_version_requirement: ^8.8 || ^9

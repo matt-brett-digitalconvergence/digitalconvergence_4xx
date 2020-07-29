@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Provides common functionality and specializations for the web platform.
+ * System 4xx module.
  */
 
 use Drupal\Core\Form\FormStateInterface;

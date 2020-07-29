@@ -1,5 +1,5 @@
 {
-    "name": "digitalconvergenceca/digitalconvergence_4xx_controller",
+    "name": "digitalconvergenceca/digitalconvergence_4xx",
     "description": "Allow you to perform system 4xx related overrides.",
     "type": "drupal-module",
     "require": {}
