@@ -1,0 +1,43 @@
+<?php
+
+/**
+ * @file
+ * System 4xx module.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_theme().
+ */
+function digitalconvergence_4xx_theme($existing, $type, $theme, $path) {
+  return [
+    'digitalconvergence_4xx' => [
+      'template' => 'digitalconvergence-4xx',
+      'variables' => [],
+    ],
+    'digitalconvergence_403' => [
+      'template' => 'digitalconvergence-403',
+      'variables' => [],
+    ],
+    'digitalconvergence_404' => [
+      'template' => 'digitalconvergence-404',
+      'variables' => [],
+    ]
+  ];
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function digitalconvergence_4xx_form_alter(array &$form, FormStateInterface $form_state, $form_id) {
+    // var_dump($form['error_page']['site_403']);
+  if (strpos($form_id, 'system_site_information_settings') === 0) {
+    $form['error_page']['site_403'] = [
+      '#access' => FALSE,
+    ];
+    $form['error_page']['site_404'] = [
+      '#access' => FALSE,
+    ];
+  }
+}
