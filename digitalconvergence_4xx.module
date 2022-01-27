@@ -11,7 +11,6 @@ use Drupal\Core\Form\FormStateInterface;
  * Implements hook_theme().
  */
 function digitalconvergence_4xx_theme($existing, $type, $theme, $path) {
-  $config = \Drupal::configFactory()->getEditable('system.site');
   return [
     'digitalconvergence_4xx' => [
       'template' => 'digitalconvergence-4xx',
@@ -24,8 +23,9 @@ function digitalconvergence_4xx_theme($existing, $type, $theme, $path) {
     'digitalconvergence_404' => [
       'template' => 'digitalconvergence-404',
       'variables' => [
-        'page_404_title' => $config->get('page.404_title'),
-        'page_404_body' => $config->get('page.404_body'),
+        'page_404_title' => 'Page not found',
+        'page_404_body' => '<p>The requested page could not be found.</p>',
+        'testv' => '',
       ],
     ]
   ];
