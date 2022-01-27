@@ -11,6 +11,7 @@ use Drupal\Core\Form\FormStateInterface;
  * Implements hook_theme().
  */
 function digitalconvergence_4xx_theme($existing, $type, $theme, $path) {
+  $config = \Drupal::configFactory()->getEditable('system.site');
   return [
     'digitalconvergence_4xx' => [
       'template' => 'digitalconvergence-4xx',
@@ -22,7 +23,10 @@ function digitalconvergence_4xx_theme($existing, $type, $theme, $path) {
     ],
     'digitalconvergence_404' => [
       'template' => 'digitalconvergence-404',
-      'variables' => [],
+      'variables' => [
+        'page_404_title' => $config->get('page.404_title'),
+        'page_404_body' => $config->get('page.404_body'),
+      ],
     ]
   ];
 }
@@ -32,7 +36,7 @@ function digitalconvergence_4xx_theme($existing, $type, $theme, $path) {
  */
 function digitalconvergence_4xx_form_alter(array &$form, FormStateInterface $form_state, $form_id) {
   if (strpos($form_id, 'system_site_information_settings') === 0) {
-    // Deny access to default 4xx site settings
+    // Deny access to default 4xx site settings.
     $form['error_page']['site_403'] = [
       '#access' => FALSE,
     ];
@@ -60,7 +64,7 @@ function digitalconvergence_4xx_form_alter(array &$form, FormStateInterface $for
 }
 
 /**
- * Site Information Settings form custom submit handler
+ * Site Information Settings form custom submit handler.
  *
  * @param array $form
  *   Nested array of form elements that comprise the form.
@@ -78,19 +82,3 @@ function digitalconvergence_4xx_system_site_information_settings_submit(array $f
     ->save();
 }
 
-/**
- * Implements hook_preprocess_page().
- *
- * @param array $variables
- *   The variables array (modify in place).
- */
-function digitalconvergence_4xx_preprocess_page(array &$variables) {
-  // Add custom 404 page variables.
-  $status = \Drupal::requestStack()->getCurrentRequest()->attributes->get('exception');
-  if ($status && $status->getStatusCode() == 404) {
-    $variables['is_404'] = TRUE;
-    $config = \Drupal::configFactory()->getEditable('system.site');
-    $variables['page_404_title'] = $config->get('page.404_title');
-    $variables['page_404_body'] = $config->get('page.404_body');
-  }
-}

@@ -1,5 +1,15 @@
 <!-- digitalconvergence 4xx module's HTTP 404 error page template file -->
 <div class="container">
-    <h1>{{ 'Page not found!'|t }}</h1>
-    <p>{{ 'The requested page could not be found.'|t }}</p>
+    <h1>
+        {% if page_404_title is empty %}
+          {{ 'Page not found!'|t }}
+        {% else %}
+          {{ page_404_title }}
+        {% endif %}
+    </h1>
+    {% if page_404_body is empty %}
+        <p>{{ 'The requested page could not be found.'|t }}</p>
+    {% else %}
+        {{ page_404_body|raw }}
+    {% endif %}
 </div>
