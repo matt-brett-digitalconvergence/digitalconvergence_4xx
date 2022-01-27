@@ -23,8 +23,8 @@ function digitalconvergence_4xx_theme($existing, $type, $theme, $path) {
     'digitalconvergence_404' => [
       'template' => 'digitalconvergence-404',
       'variables' => [
-        'page_404_title' => 'Page not found',
-        'page_404_body' => '<p>The requested page could not be found.</p>',
+        'page_404_title' => t('Page not found'),
+        'page_404_body' => '<p>' . t('The requested page could not be found.') . '</p>',
         'testv' => '',
       ],
     ]
