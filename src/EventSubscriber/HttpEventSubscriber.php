@@ -41,7 +41,6 @@ class HttpEventSubscriber extends HttpExceptionSubscriberBase {
    */
   public function on403(ExceptionEvent $event) {
     $config = \Drupal::configFactory()->getEditable('system.site');
-    $teesttest = $config->get('page.403_to_404_anonymous');
     if ($config->get('page.403_to_404_anonymous') == 1 && $this->currentUser->isAnonymous()) {
       $event->setThrowable(new NotFoundHttpException());
     }
