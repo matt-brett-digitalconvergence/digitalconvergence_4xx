@@ -55,6 +55,11 @@ function digitalconvergence_4xx_form_alter(array &$form, FormStateInterface $for
     $form['error_page']['site_404_content'] = [
       '#type' => 'fieldset',
       '#title' => t('404 (not found) page'),
+      'site_403_to_404_anonymous' => [
+        '#type' => 'checkbox',
+        '#title' => t('Present anonymous users with a 404 instead of 403'),
+        '#default_value' => $config->get('page.403_to_404_anonymous'),
+      ],
       'site_404_content_title' => [
         '#type' => 'textfield',
         '#title' => t('404 (not found) page title'),
@@ -80,10 +85,12 @@ function digitalconvergence_4xx_form_alter(array &$form, FormStateInterface $for
  *   are available in the array $form_state->getBuildInfo()['args'].
  */
 function digitalconvergence_4xx_system_site_information_settings_submit(array $form, FormStateInterface $form_state) {
+  $site_403_to_404_anonymous = $form_state->getValues()['site_403_to_404_anonymous'];
   $site_404_title = $form_state->getValues()['site_404_content_title'];
   $site_404_content_body = $form_state->getValues()['site_404_content_body']['value'];
   \Drupal::configFactory()
     ->getEditable('system.site')
+    ->set('page.403_to_404_anonymous', $site_403_to_404_anonymous)
     ->set('page.404_title', $site_404_title)
     ->set('page.404_body', $site_404_content_body)
     ->save();

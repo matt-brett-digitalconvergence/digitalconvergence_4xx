@@ -40,7 +40,9 @@ class HttpEventSubscriber extends HttpExceptionSubscriberBase {
    * For anonymous users, throw a 404 instead of a 403 error.
    */
   public function on403(ExceptionEvent $event) {
-    if ($this->currentUser->isAnonymous()) {
+    $config = \Drupal::configFactory()->getEditable('system.site');
+    $teesttest = $config->get('page.403_to_404_anonymous');
+    if ($config->get('page.403_to_404_anonymous') == 1 && $this->currentUser->isAnonymous()) {
       $event->setThrowable(new NotFoundHttpException());
     }
   }
